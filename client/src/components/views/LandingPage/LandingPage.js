@@ -25,7 +25,6 @@ function LandingPage() {
     })
 
     useEffect(() => {
-
         const variables = {
             skip: Skip,
             limit: Limit,
@@ -65,7 +64,6 @@ function LandingPage() {
         setSkip(skip)
     }
 
-
     const renderCards = Products.map((product, index) => {
 
         return <Col lg={6} md={8} xs={24}>
@@ -82,7 +80,6 @@ function LandingPage() {
         </Col>
     })
 
-
     const showFilteredResults = (filters) => {
 
         const variables = {
@@ -93,7 +90,6 @@ function LandingPage() {
         }
         getProducts(variables)
         setSkip(0)
-
     }
 
     const handlePrice = (value) => {
@@ -143,13 +139,11 @@ function LandingPage() {
         getProducts(variables)
     }
 
-
     return (
         <div style={{ width: '75%', margin: '3rem auto' }}>
             <div style={{ textAlign: 'center' }}>
                 <h2>  Let's Travel Anywhere  <RocketOutlined />  </h2>
             </div>
-
 
             {/* Filter  */}
 
@@ -168,7 +162,6 @@ function LandingPage() {
                 </Col>
             </Row>
 
-
             {/* Search  */}
             <div style={{ display: 'flex', justifyContent: 'flex-end', margin: '1rem auto' }}>
 
@@ -177,7 +170,6 @@ function LandingPage() {
                 />
 
             </div>
-
 
             {Products.length === 0 ?
                 <div style={{ display: 'flex', height: '300px', justifyContent: 'center', alignItems: 'center' }}>
@@ -189,8 +181,6 @@ function LandingPage() {
                         {renderCards}
 
                     </Row>
-
-
                 </div>
             }
             <br /><br />
@@ -200,8 +190,6 @@ function LandingPage() {
                     <button onClick={onLoadMore}>Load More</button>
                 </div>
             }
-
-
         </div>
     )
 }

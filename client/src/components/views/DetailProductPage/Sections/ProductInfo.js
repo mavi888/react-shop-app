@@ -6,15 +6,12 @@ function ProductInfo(props) {
     const [Product, setProduct] = useState({})
 
     useEffect(() => {
-
         setProduct(props.detail)
-
     }, [props.detail])
 
     const addToCartHandler = () => {
         props.addToCart(props.detail._id)
     }
-
 
     return (
         <div>
@@ -35,7 +32,6 @@ function ProductInfo(props) {
                     Add to Cart
                     </Button>
             </div>
-           
         </div>
     )
 }

@@ -8,8 +8,6 @@ const cookieParser = require("cookie-parser");
 
 const config = require("./config/key");
 
-console.log('Environment: ' + process.env.NODE_ENV)
-
 // DATABASE
 const mongoose = require("mongoose");
 console.log(config.mongoURI);
