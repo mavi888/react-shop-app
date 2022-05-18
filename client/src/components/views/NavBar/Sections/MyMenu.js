@@ -3,16 +3,17 @@ import React from 'react';
 import { Menu, Badge } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 
-import axios from 'axios';
-import { USER_SERVER } from '../../../Config';
+import Axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { useSelector } from "react-redux";
+
+import { USER_SERVER } from '../../../Config';
 
 function MyMenu(props) {
   const user = useSelector(state => state.user)
 
   const logoutHandler = () => {
-    axios.get(`${USER_SERVER}/logout`).then(response => {
+    Axios.get(`${USER_SERVER}/logout`).then(response => {
       if (response.status === 200) {
         props.history.push("/login");
       } else {

@@ -5,13 +5,15 @@ import ProductImage from './Sections/ProductImage';
 import ProductInfo from './Sections/ProductInfo';
 import { addToCart } from '../../../_actions/user_actions';
 import { useDispatch } from 'react-redux';
+import { PRODUCT_SERVER } from '../../Config';
+
 function DetailProductPage(props) {
     const dispatch = useDispatch();
     const productId = props.match.params.productId
     const [Product, setProduct] = useState([])
 
     useEffect(() => {
-        Axios.get(`/api/product/products_by_id?id=${productId}&type=single`)
+        Axios.get(`${PRODUCT_SERVER}/products_by_id?id=${productId}&type=single`)
             .then(response => {
                 setProduct(response.data[0])
             })

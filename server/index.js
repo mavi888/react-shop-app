@@ -25,7 +25,7 @@ app.use(cookieParser());
 // SET UP ROUTES
 app.use('/api/users', require('./routes/users'));
 app.use('/api/product', require('./routes/product'));
-
+app.use('/api/store', require('./routes/store'));
 
 //use this to show the image you have in node js server to client (react js)
 //https://stackoverflow.com/questions/48914987/send-image-path-from-node-js-express-server-to-react-client

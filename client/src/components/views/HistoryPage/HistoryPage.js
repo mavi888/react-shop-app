@@ -1,13 +1,13 @@
 import Axios from 'axios';
-
 import React, { useEffect, useState } from 'react'
+import { STORE_SERVER } from '../../Config';
 
 function HistoryPage() {
 
     const [History, setHistory] = useState([])
 
     useEffect(()=> {
-        Axios.get('api/users/getHistory')
+        Axios.get(`${STORE_SERVER}/getHistory`)
             .then(res => {
                 if (res.data.success) {
                     const history = res.data.history

@@ -10,7 +10,7 @@ import {
     ON_SUCCESS_BUY_USER,
 } from './types';
 
-import { USER_SERVER } from '../components/Config.js';
+import { USER_SERVER, STORE_SERVER, PRODUCT_SERVER } from '../components/Config.js';
 
 export function registerUser(dataToSubmit) {
     const request = axios.post(`${USER_SERVER}/register`, dataToSubmit)
@@ -53,7 +53,7 @@ export function logoutUser() {
 }
 
 export function addToCart(_id) {
-    const request = axios.get(`${USER_SERVER}/addToCart?productId=${_id}`)
+    const request = axios.get(`${STORE_SERVER}/addToCart?productId=${_id}`)
         .then(response => response.data);
 
     return {
@@ -63,7 +63,7 @@ export function addToCart(_id) {
 }
 
 export function getCartItems(cartItems, userCart) {
-    const request = axios.get(`/api/product/products_by_id?id=${cartItems}&type=array`)
+    const request = axios.get(`${PRODUCT_SERVER}/products_by_id?id=${cartItems}&type=array`)
         .then(response => {
 
             //Make CartDetail inside Redux Store 
@@ -87,7 +87,7 @@ export function getCartItems(cartItems, userCart) {
 }
 
 export function removeCartItem(id) {
-    const request = axios.get(`/api/users/removeFromCart?_id=${id}`)
+    const request = axios.get(`${USER_SERVER}/removeFromCart?_id=${id}`)
         .then(response => {
 
             response.data.cart.forEach(item => {
@@ -108,7 +108,7 @@ export function removeCartItem(id) {
 
 export function onSuccessBuy(data) {
 
-    const request = axios.post(`${USER_SERVER}/successBuy`, data)
+    const request = axios.post(`${STORE_SERVER}/successBuy`, data)
         .then(response => response.data);
 
     return {

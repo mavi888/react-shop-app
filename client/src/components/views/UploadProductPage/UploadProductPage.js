@@ -3,6 +3,8 @@ import { Typography, Button, Form, Input } from 'antd';
 import FileUpload from '../../utils/FileUpload'
 import Axios from 'axios';
 
+import { PRODUCT_SERVER } from '../../Config';
+
 const { Title } = Typography;
 const { TextArea } = Input;
 
@@ -62,7 +64,7 @@ function UploadProductPage(props) {
             continents: ContinentValue,
         }
 
-        Axios.post('/api/product/uploadProduct', variables)
+        Axios.post(`${PRODUCT_SERVER}/uploadProduct`, variables)
             .then(response => {
                 if (response.data.success) {
                     alert('Product Successfully Uploaded')
