@@ -37,7 +37,6 @@ export class UploadProductPage extends Component {
     }
 
     handleChangeDecsription = (event) => {
-        // console.log(event.currentTarget.value)
         this.setState({ description: event.currentTarget.value })
     }
 
@@ -89,7 +88,7 @@ export class UploadProductPage extends Component {
         return (
             <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
             <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-                <Title level={2} > Upload Travel Product</Title>
+                <Title level={2} > Upload New Swag</Title>
             </div>
 
             <Form onSubmit={this.onSubmit}>
@@ -103,7 +102,7 @@ export class UploadProductPage extends Component {
                     value={this.state.title}
                 />
                 <br /><br />
-                <label>Description</label>
+                <label>Product Description</label>
                 <TextArea
                     onChange={this.handleChangeDecsription}
                     value={this.state.description}
@@ -124,7 +123,7 @@ export class UploadProductPage extends Component {
                 <br /><br />
 
                 <Button type="primary" size="large" onClick={this.onSubmit}>
-                    Submit
+                    Create
                 </Button>
             </Form>
         </div>

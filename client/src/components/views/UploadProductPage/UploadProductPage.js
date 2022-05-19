@@ -78,7 +78,7 @@ function UploadProductPage(props) {
     return (
         <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
             <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-                <Title level={2}> Upload Travel Product</Title>
+                <Title level={2}> Upload New Swag</Title>
             </div>
 
             <Form onSubmit={onSubmit} >

@@ -57,7 +57,7 @@ function FileUpload(props) {
                         {console.log('getRootProps', { ...getRootProps() })}
                         {console.log('getInputProps', { ...getInputProps() })}
                         <input {...getInputProps()} />
-                        <PlusCircleOutlined />
+                        <PlusCircleOutlined style={{ fontSize: '200%'}}/>
 
                     </div>
                 )}

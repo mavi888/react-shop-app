@@ -71,7 +71,7 @@ function CartPage(props) {
 
     return (
         <div style={{ width: '85%', margin: '3rem auto' }}>
-            <h1>My Cart</h1>
+            <h1>My Shopping Cart</h1>
             <div>
 
                 <UserCardBlock
@@ -105,7 +105,7 @@ function CartPage(props) {
 
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Button size="large" shape="round" type="danger" onClick={payHandler}>
-                        Payment
+                        Purchase products
                     </Button>
                 </div>
             }
