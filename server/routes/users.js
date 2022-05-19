@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const { User } = require("../models/User");
 const { auth } = require("../middleware/auth");
-const async = require('async');
 const userController = require('../controllers/userController')
 
 router.get("/auth", auth, (req, res) => {
@@ -33,30 +32,35 @@ router.post("/register", async (req, res) => {
     }
 });
 
-router.post("/login", (req, res) => {
-    User.findOne({ email: req.body.email }, (err, user) => {
-        if (!user)
-            return res.json({
-                loginSuccess: false,
+router.post("/login", async (req, res) => {
+    console.log('login')
+    const email = req.body.email;
+    const password = req.body.password;
+
+    try {
+        const user = await userController.login(email, password);
+        res.cookie("w_authExp", user.tokenExp);
+        res.cookie("w_auth", user.token)
+            .status(200)
+            .json({
+                loginSuccess: true, userId: user._id
+            });
+    } catch (err) {
+        if (err.message === "Email not found") {
+            return res.json({ 
+                loginSuccess: false, 
                 message: "Auth failed, email not found"
-            });
-
-        user.comparePassword(req.body.password, (err, isMatch) => {
-            if (!isMatch)
-                return res.json({ loginSuccess: false, message: "Wrong password" });
-
-            user.generateToken((err, user) => {
-                if (err) return res.status(400).send(err);
-                res.cookie("w_authExp", user.tokenExp);
-                res
-                    .cookie("w_auth", user.token)
-                    .status(200)
-                    .json({
-                        loginSuccess: true, userId: user._id
-                    });
-            });
-        });
-    });
+            }); 
+        }
+        if (err.message === 'Wrong password') {
+            return res.json({ 
+                loginSuccess: false, 
+                message: "Wrong password"  
+            }); 
+        }
+        
+        return res.status(400).send(err);
+    } 
 });
 
 router.get("/logout", auth, (req, res) => {

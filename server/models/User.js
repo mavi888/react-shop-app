@@ -62,24 +62,19 @@ userSchema.pre('save', function (next) {
     }
 });
 
-userSchema.methods.comparePassword = function (plainPassword, cb) {
-    bcrypt.compare(plainPassword, this.password, function (err, isMatch) {
-        if (err) return cb(err);
-        cb(null, isMatch)
-    })
+userSchema.methods.comparePassword = async function (plainPassword) {
+    const isMatch = await bcrypt.compare(plainPassword, this.password);
+    return isMatch;
 }
 
-userSchema.methods.generateToken = function (cb) {
+userSchema.methods.generateToken = async function () {
     var user = this;
     var token = jwt.sign(user._id.toHexString(), 'secret')
     var oneHour = moment().add(1, 'hour').valueOf();
 
     user.tokenExp = oneHour;
     user.token = token;
-    user.save(function (err, user) {
-        if (err) return cb(err)
-        cb(null, user);
-    })
+    return await user.save();
 }
 
 userSchema.statics.findByToken = function (token, cb) {
