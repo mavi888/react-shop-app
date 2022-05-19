@@ -74,7 +74,7 @@ function LandingPage() {
             >
                 
                 <Meta
-                    title={product._id}
+                    title={product.title}
                     description={`$${product.price}`}
                 />
             </Card>
@@ -143,7 +143,7 @@ function LandingPage() {
     return (
         <div style={{ width: '75%', margin: '3rem auto' }}>
             <div style={{ textAlign: 'center' }}>
-                <h2>Check all the products <RocketOutlined /></h2>
+                <h2>Check all the swag <RocketOutlined /></h2>
             </div>
 
             {/* Filter  */}
