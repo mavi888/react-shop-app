@@ -9,7 +9,7 @@
 }
 
 .menu__logo {
-  width: 150px;
+  width: 180px;
   float: left;
 }
 
@@ -17,6 +17,14 @@
   display: inline-block;
   font-size: 20px;
   padding: 19px 20px;
+}
+
+.menu__container {
+  padding: 10px 20px;
+}
+
+.menu__container a {
+  font-size: 18px;
 }
 
 .menu__container .ant-menu-item {
@@ -45,14 +53,6 @@
   background: #3e91f7;
 }
 
-.menu_drawer .ant-drawer-body {
-  padding: 0 !important;
-}
-
-/* align header of Drawer with header of page */
-.menu_drawer .ant-drawer-header {
-  padding: 14px 24px !important;
-}
 
 @media (max-width: 767px) {
   .menu__mobile-button {

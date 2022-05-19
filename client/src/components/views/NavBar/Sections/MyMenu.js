@@ -26,10 +26,10 @@ function MyMenu(props) {
     return (
       <Menu mode={props.mode}>
         <Menu.Item key="mail">
-          <a href="/login">Signin</a>
+          <a href="/login">Login</a>
         </Menu.Item>
         <Menu.Item key="app">
-          <a href="/register">Signup</a>
+          <a href="/register">Register</a>
         </Menu.Item>
       </Menu>
     )
@@ -51,8 +51,8 @@ function MyMenu(props) {
 
         <Menu.Item key="cart" style={{ paddingBottom: 3 }}>
           <Badge count={user.userData && user.userData.cart.length}>
-            <a href="/user/cart" style={{ marginRight: -22 , color:'#667777'}}>
-              <ShoppingCartOutlined />
+            <a href="/user/cart">
+              <ShoppingCartOutlined style={{ fontSize: '140%'}}/>
             </a>
           </Badge>
         </Menu.Item>
