@@ -63,7 +63,38 @@ removeFromCart = async (userId, itemIdToRemove) => {
     return r;
 }
 
+getCartInfo = async (userId) => {
+    const userInfo = await User.findOne({ _id: userId });
+
+    let cart = userInfo.cart;
+    let array = cart.map(item => {
+        return item.id
+    })
+
+    const cartDetail = await productController.findProductById(array);
+
+    const r = {
+        cartDetail, 
+        cart
+    }
+    return r;
+}
+
+buyAnItem = async () => {
+
+}
+
+getHistory = async(userId) => {
+    const user = await User.findOne({ _id: userId });
+
+    const history = user.history;
+    return history;
+}
+
 module.exports = {
     addProductToCart,
-    removeFromCart
+    removeFromCart,
+    getCartInfo,
+    buyAnItem,
+    getHistory,
 }

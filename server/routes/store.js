@@ -35,25 +35,18 @@ router.get('/removeFromCart', auth, async (req, res) => {
     }   
 })
 
-router.get('/userCartInfo', auth, (req, res) => {
-    User.findOne(
-        { _id: req.user._id },
-        (err, userInfo) => {
-            let cart = userInfo.cart;
-            let array = cart.map(item => {
-                return item.id
-            })
+// TODO: remove as nobody is using it
+router.get('/userCartInfo', auth, async (req, res) => {
+    const userId = req.user._id;
 
-
-            Product.find({ '_id': { $in: array } })
-                .populate('writer')
-                .exec((err, cartDetail) => {
-                    if (err) return res.status(400).send(err);
-                    return res.status(200).json({ success: true, cartDetail, cart })
-                })
-
-        }
-    )
+    try {
+        const r = await storeController.getCartInfo(userId);
+        const cartDetail = r.cartDetail;
+        const cart = r.cart;
+        return res.status(200).json({ success: true, cartDetail, cart });
+    } catch(err) {
+        return res.status(400).send(err);
+    }
 })
 
 router.post('/successBuy', auth, (req, res) => {
@@ -142,15 +135,15 @@ router.post('/successBuy', auth, (req, res) => {
     )
 })
 
-router.get('/getHistory', auth, (req, res) => {
-    User.findOne(
-        { _id: req.user._id },
-        (err, doc) => {
-            let history = doc.history;
-            if (err) return res.status(400).send(err)
-            return res.status(200).json({ success: true, history })
-        }
-    )
+router.get('/getHistory', auth, async (req, res) => {
+    const userId = req.user._id;
+
+    try {
+        const history = await storeController.getHistory(userId);
+        return res.status(200).json({ success: true, history })
+    } catch (err) {
+        return res.status(400).send(err)
+    }
 })
 
 module.exports = router;
