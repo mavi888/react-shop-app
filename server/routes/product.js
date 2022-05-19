@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { Product } = require("../models/Product");
+
+const productController = require('../controllers/productController')
+
 const multer = require('multer');
 
 const { auth } = require("../middleware/auth");
@@ -23,7 +25,6 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage }).single("file")
 
-
 //  Product
 
 router.post("/uploadImage", auth, (req, res) => {
@@ -38,18 +39,16 @@ router.post("/uploadImage", auth, (req, res) => {
 
 });
 
-router.post("/uploadProduct", auth, (req, res) => {
-    //save all the data we got from the client into the DB 
-    const product = new Product(req.body)
-
-    product.save((err) => {
-        if (err) return res.status(400).json({ success: false, err })
-        return res.status(200).json({ success: true })
-    })
-
+router.post("/uploadProduct", auth, async (req, res) => {
+    try {
+        await productController.addProduct(req.body);
+        return res.status(200).json({ success: true }) 
+    }catch(e) {
+        return res.status(400).json({ success: false, err })
+    }
 });
 
-router.post("/getProducts", (req, res) => {
+router.post("/getProducts", async (req, res) => {
 
     let order = req.body.order ? req.body.order : "desc";
     let sortBy = req.body.sortBy ? req.body.sortBy : "_id";
@@ -72,37 +71,19 @@ router.post("/getProducts", (req, res) => {
             }
         }
     }
-
-    console.log(findArgs)
-
-    if (term) {
-        Product.find(findArgs)
-            .find({ $text: { $search: term } })
-            .populate("writer")
-            .sort([[sortBy, order]])
-            .skip(skip)
-            .limit(limit)
-            .exec((err, products) => {
-                if (err) return res.status(400).json({ success: false, err })
-                res.status(200).json({ success: true, products, postSize: products.length })
-            })
-    } else {
-        Product.find(findArgs)
-            .populate("writer")
-            .sort([[sortBy, order]])
-            .skip(skip)
-            .limit(limit)
-            .exec((err, products) => {
-                if (err) return res.status(400).json({ success: false, err })
-                res.status(200).json({ success: true, products, postSize: products.length })
-            })
+    
+    try {
+        const products = await productController.findProductsWithQuery(order, sortBy, limit, skip, findArgs, term)
+        console.log(products)
+        return res.status(200).json({ success: true, products, postSize: products.length })
+    } catch(err) {
+        return res.status(400).json({ success: false, err })
     }
-
 });
 
 //?id=${productId}&type=single
-//id=12121212,121212,1212121   type=array 
-router.get("/products_by_id", (req, res) => {
+//id=12121212,121212,1212121 type=array 
+router.get("/products_by_id", async (req, res) => {
     let type = req.query.type
     let productIds = req.query.id
 
@@ -118,14 +99,12 @@ router.get("/products_by_id", (req, res) => {
 
     console.log("productIds", productIds)
 
-
-    //we need to find the product information that belong to product Id 
-    Product.find({ '_id': { $in: productIds } })
-        .populate('writer')
-        .exec((err, product) => {
-            if (err) return res.status(400).send(err)
-            return res.status(200).send(product)
-        })
+    try {
+        const product = await productController.findProductById(productIds)
+        return res.status(200).send(product)
+    } catch (err) {
+        return res.status(400).send(err)
+    }
 });
 
 module.exports = router;

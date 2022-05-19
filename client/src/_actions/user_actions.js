@@ -83,13 +83,12 @@ export function getCartItems(cartItems, userCart) {
     return {
         type: GET_CART_ITEMS_USER,
         payload: request
-    }
+    } 
 }
 
 export function removeCartItem(id) {
-    const request = axios.get(`${USER_SERVER}/removeFromCart?_id=${id}`)
+    const request = axios.get(`${STORE_SERVER}/removeFromCart?_id=${id}`)
         .then(response => {
-
             response.data.cart.forEach(item => {
                 response.data.cartDetail.forEach((k, i) => {
                     if (item.id === k._id) {
@@ -98,6 +97,8 @@ export function removeCartItem(id) {
                 })
             })
             return response.data;
+        }).catch(e => {
+            alert('Error removing item from cart')
         });
 
     return {

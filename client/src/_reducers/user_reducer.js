@@ -39,7 +39,6 @@ export default function (state = {}, action) {
                     ...state.userData,
                     cart: action.payload.cart
                 }
-
             }
         case ON_SUCCESS_BUY_USER:
             return {
