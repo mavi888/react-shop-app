@@ -22,7 +22,16 @@ login = async (email, password) => {
     return await user.generateToken();
 }
 
+logout = async(userId) => {
+    const user = await User.findOneAndUpdate(
+        { _id: userId }, 
+        { token: "", tokenExp: "" })
+    
+    return user
+}
+
 module.exports = {
     registerNewUser,
-    login
+    login,
+    logout
 }

@@ -1,11 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+const { auth } = require("../middleware/auth");
 
 const productController = require('../controllers/productController')
-
-const multer = require('multer');
-
-const { auth } = require("../middleware/auth");
 
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -25,13 +23,10 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage }).single("file")
 
-//  Product
-
 router.post("/uploadImage", auth, (req, res) => {
 
     upload(req, res, err => {
         if (err) {
-            console.log(err)
             return res.json({ success: false, err })
         }
         return res.json({ success: true, image: res.req.file.path, fileName: res.req.file.filename })
@@ -74,7 +69,6 @@ router.post("/getProducts", async (req, res) => {
     
     try {
         const products = await productController.findProductsWithQuery(order, sortBy, limit, skip, findArgs, term)
-        console.log(products)
         return res.status(200).json({ success: true, products, postSize: products.length })
     } catch(err) {
         return res.status(400).json({ success: false, err })
@@ -87,8 +81,6 @@ router.get("/products_by_id", async (req, res) => {
     let type = req.query.type
     let productIds = req.query.id
 
-    console.log("req.query.id", req.query.id)
-
     if (type === "array") {
         let ids = req.query.id.split(',');
         productIds = [];
@@ -96,8 +88,6 @@ router.get("/products_by_id", async (req, res) => {
             return item
         })
     }
-
-    console.log("productIds", productIds)
 
     try {
         const product = await productController.findProductById(productIds)

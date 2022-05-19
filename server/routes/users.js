@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { User } = require("../models/User");
 const { auth } = require("../middleware/auth");
+
 const userController = require('../controllers/userController')
 
 router.get("/auth", auth, (req, res) => {
@@ -33,7 +33,6 @@ router.post("/register", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-    console.log('login')
     const email = req.body.email;
     const password = req.body.password;
 
@@ -63,13 +62,17 @@ router.post("/login", async (req, res) => {
     } 
 });
 
-router.get("/logout", auth, (req, res) => {
-    User.findOneAndUpdate({ _id: req.user._id }, { token: "", tokenExp: "" }, (err, doc) => {
-        if (err) return res.json({ success: false, err });
+router.get("/logout", auth, async (req, res) => {
+    const userId = req.user._id
+
+    try {
+        await userController.logout(userId);
         return res.status(200).send({
             success: true
-        });
-    });
+        }); 
+    } catch(err) {
+        return res.json({ success: false, err });
+    }
 });
 
 module.exports = router;
