@@ -1,13 +1,13 @@
 const { Product } = require("../models/Product");
 
 addProduct = async (productData) => {
-    const product = new Product(productData);
-    return product.save();
+    const product = await new Product(productData);
+    return await product.save();
 }
 
 findProductsWithQuery = async (order, sortBy, limit, skip, findArgs, term) => {
     if (term) {
-        return Product.find(findArgs)
+        return await Product.find(findArgs)
             .find({ $text: { $search: term } })
             .populate("writer")
             .sort([[sortBy, order]])
@@ -15,7 +15,7 @@ findProductsWithQuery = async (order, sortBy, limit, skip, findArgs, term) => {
             .limit(limit)
             .exec() 
     } else {
-        return Product.find(findArgs)
+        return await Product.find(findArgs)
             .populate("writer")
             .sort([[sortBy, order]])
             .skip(skip)

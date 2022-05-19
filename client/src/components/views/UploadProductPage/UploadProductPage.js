@@ -8,14 +8,14 @@ import { PRODUCT_SERVER } from '../../Config';
 const { Title } = Typography;
 const { TextArea } = Input;
 
-const Continents = [
-    { key: 1, value: "Africa" },
-    { key: 2, value: "Europe" },
-    { key: 3, value: "Asia" },
-    { key: 4, value: "North America" },
-    { key: 5, value: "South America" },
-    { key: 6, value: "Australia" },
-    { key: 7, value: "Antarctica" }
+const Category = [
+    { key: 1, value: "T-Shirts" },
+    { key: 2, value: "Hoddies" },
+    { key: 3, value: "Books" },
+    { key: 4, value: "Pens" },
+    { key: 5, value: "Hats" },
+    { key: 6, value: "Stickers" },
+    { key: 7, value: "Other..." }
 ]
 
 function UploadProductPage(props) {
@@ -23,7 +23,7 @@ function UploadProductPage(props) {
     const [TitleValue, setTitleValue] = useState("")
     const [DescriptionValue, setDescriptionValue] = useState("")
     const [PriceValue, setPriceValue] = useState(0)
-    const [ContinentValue, setContinentValue] = useState(1)
+    const [CategoryValue, setCategoryValue] = useState(1)
 
     const [Images, setImages] = useState([])
 
@@ -39,8 +39,8 @@ function UploadProductPage(props) {
         setPriceValue(event.currentTarget.value)
     }
 
-    const onContinentsSelectChange = (event) => {
-        setContinentValue(event.currentTarget.value)
+    const onCategorySelectChange = (event) => {
+        setCategoryValue(event.currentTarget.value)
     }
 
     const updateImages = (newImages) => {
@@ -51,7 +51,7 @@ function UploadProductPage(props) {
         event.preventDefault();
 
         if (!TitleValue || !DescriptionValue || !PriceValue ||
-            !ContinentValue || !Images) {
+            !CategoryValue || !Images) {
             return alert('fill all the fields first!')
         }
 
@@ -61,7 +61,7 @@ function UploadProductPage(props) {
             description: DescriptionValue,
             price: PriceValue,
             images: Images,
-            continents: ContinentValue,
+            category: CategoryValue,
         }
 
         Axios.post(`${PRODUCT_SERVER}/uploadProduct`, variables)
@@ -109,8 +109,8 @@ function UploadProductPage(props) {
                     type="number"
                 />
                 <br /><br />
-                <select onChange={onContinentsSelectChange} value={ContinentValue}>
-                    {Continents.map(item => (
+                <select onChange={onCategorySelectChange} value={CategoryValue}>
+                    {Category.map(item => (
                         <option key={item.key} value={item.key}>{item.value} </option>
                     ))}
                 </select>

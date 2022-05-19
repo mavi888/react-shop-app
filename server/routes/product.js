@@ -35,8 +35,10 @@ router.post("/uploadImage", auth, (req, res) => {
 });
 
 router.post("/uploadProduct", auth, async (req, res) => {
+    const productDetail = req.body;
+
     try {
-        await productController.addProduct(req.body);
+        await productController.addProduct(productDetail);
         return res.status(200).json({ success: true }) 
     }catch(e) {
         return res.status(400).json({ success: false, err })

@@ -6,7 +6,7 @@ import { RocketOutlined } from '@ant-design/icons';
 import ImageSlider from '../../utils/ImageSlider';
 import CheckBox from './Sections/CheckBox';
 import RadioBox from './Sections/RadioBox';
-import { continents, price } from './Sections/Datas';
+import { category, price } from './Sections/Datas';
 import SearchFeature from './Sections/SearchFeature';
 import { PRODUCT_SERVER } from '../../Config';
 
@@ -21,7 +21,7 @@ function LandingPage() {
     const [SearchTerms, setSearchTerms] = useState("")
 
     const [Filters, setFilters] = useState({
-        continents: [],
+        category: [],
         price: []
     })
 
@@ -143,7 +143,7 @@ function LandingPage() {
     return (
         <div style={{ width: '75%', margin: '3rem auto' }}>
             <div style={{ textAlign: 'center' }}>
-                <h2>  Let's Travel Anywhere  <RocketOutlined />  </h2>
+                <h2>Check all the products <RocketOutlined /></h2>
             </div>
 
             {/* Filter  */}
@@ -151,8 +151,8 @@ function LandingPage() {
             <Row gutter={[16, 16]}>
                 <Col lg={12} xs={24} >
                     <CheckBox
-                        list={continents}
-                        handleFilters={filters => handleFilters(filters, "continents")}
+                        list={category}
+                        handleFilters={filters => handleFilters(filters, "category")}
                     />
                 </Col>
                 <Col lg={12} xs={24}>
