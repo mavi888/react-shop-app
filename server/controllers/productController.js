@@ -30,8 +30,19 @@ findProductById = async (productIds) => {
         .exec()
 }
 
+updateProductQuantity = async (productId, quantity) => {
+    await Product.updateOne({ _id: productId }, 
+        {
+            $inc: {
+                "sold": quantity
+            }
+        },
+        { new: false })
+}
+
 module.exports = {
     addProduct,
     findProductsWithQuery,
-    findProductById
+    findProductById,
+    updateProductQuantity
 }

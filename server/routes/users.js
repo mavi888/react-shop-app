@@ -3,8 +3,7 @@ const router = express.Router();
 const { User } = require("../models/User");
 const { auth } = require("../middleware/auth");
 const async = require('async');
-
-// User
+const userController = require('../controllers/userController')
 
 router.get("/auth", auth, (req, res) => {
     res.status(200).json({
@@ -21,15 +20,17 @@ router.get("/auth", auth, (req, res) => {
     });
 });
 
-router.post("/register", (req, res) => {
-    const user = new User(req.body);
+router.post("/register", async (req, res) => {
+    const userInformation = req.body;
 
-    user.save((err, doc) => {
-        if (err) return res.json({ success: false, err });
+    try {
+        await userController.registerNewUser(userInformation);
         return res.status(200).json({
             success: true
         });
-    });
+    } catch (err) {
+        return res.json({ success: false, err });
+    }
 });
 
 router.post("/login", (req, res) => {

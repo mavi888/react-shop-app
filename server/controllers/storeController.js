@@ -1,5 +1,8 @@
 const { User } = require("../models/User");
+const { Payment } = require('../models/Payment');
+
 const productController = require('../controllers/productController')
+const { v4: uuidv4 } = require('uuid');
 
 addProductToCart = async (userId, productId) => {
 
@@ -80,9 +83,56 @@ getCartInfo = async (userId) => {
     return r;
 }
 
-buyAnItem = async () => {
+buyItems = async (cartDetail, userId, userName, userLastName, userEmail) => {
+    console.log('buy items controller');
 
+    let history = [];
+    let transactionData = {};
+
+    const paymentId = uuidv4();
+
+    // Add a new item to the history 
+    cartDetail.forEach((item) => {
+        console.log(item);
+        console.log(paymentId)
+
+        history.push({
+            dateOfPurchase: Date.now(),
+            name: item.title,
+            id: item._id,
+            price: item.price,
+            quantity: item.quantity,
+            paymentId: paymentId
+        })
+    })
+
+    // Put Payment Information that come from payment into payment collection 
+    transactionData.user = {
+        id: userId,
+        name: userName,
+        lastname: userLastName,
+        email: userEmail
+    }
+
+    transactionData.data = paymentId;
+    transactionData.product = history
+
+    const user = await User.findOneAndUpdate(
+        { _id: userId },
+        { $push: { history: history }, $set: { cart: [] } },
+        { new: true });
+       
+    const payment = new Payment(transactionData);
+    const doc = await payment.save()
+                
+    //Increase the amount of number for the sold information 
+    doc.product.forEach(async item => {
+        await productController.updateProductQuantity(item.id, item.quantity)
+    })
+
+    return user.cart;
 }
+
 
 getHistory = async(userId) => {
     const user = await User.findOne({ _id: userId });
@@ -95,6 +145,6 @@ module.exports = {
     addProductToCart,
     removeFromCart,
     getCartInfo,
-    buyAnItem,
+    buyItems,
     getHistory,
 }
