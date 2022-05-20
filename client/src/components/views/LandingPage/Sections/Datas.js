@@ -36,31 +36,31 @@ const price = [
 
 const category = [
     {
-        "_id": 1,
+        "_id": 0,
         "name": "T-Shirts"
     },
     {
-        "_id": 2,
+        "_id": 1,
         "name": "Hoddies"
     },
     {
-        "_id": 3,
+        "_id": 2,
         "name": "Books"
     },
     {
-        "_id": 4,
+        "_id": 3,
         "name": "Pens"
     },
     {
-        "_id": 5,
+        "_id": 4,
         "name": "Hats"
     },
     {
-        "_id": 6,
+        "_id": 5,
         "name": "Stickers"
     },
     {
-        "_id": 7,
+        "_id": 6,
         "name": "Other..."
     }
 ]

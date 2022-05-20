@@ -9,13 +9,13 @@ const { Title } = Typography;
 const { TextArea } = Input;
 
 const Category = [
-    { key: 1, value: "T-Shirts" },
-    { key: 2, value: "Hoddies" },
-    { key: 3, value: "Books" },
-    { key: 4, value: "Pens" },
-    { key: 5, value: "Hats" },
-    { key: 6, value: "Stickers" },
-    { key: 7, value: "Other..." }
+    { key: 0, value: "T-Shirts" },
+    { key: 1, value: "Hoddies" },
+    { key: 2, value: "Books" },
+    { key: 3, value: "Pens" },
+    { key: 4, value: "Hats" },
+    { key: 5, value: "Stickers" },
+    { key: 6, value: "Other..." }
 ]
 
 function UploadProductPage(props) {

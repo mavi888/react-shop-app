@@ -23,7 +23,7 @@ const productSchema = mongoose.Schema({
     },
     category: {
         type: Number,
-        default: 1
+        default: 6
     },
     sold: {
         type: Number,
