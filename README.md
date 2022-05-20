@@ -1,16 +1,35 @@
-Hello, My Friends  
-Thank you for having interest in this repository ! 
+# MY REACT SHOP - A MERN Example
 
-To use this application, 
+## Summary of the demo
 
-1. make dev.js file inside config folder 
-2. put mongoDB info into dev.js file 
-3. Type  " npm install " inside the root directory  ( Download Server Dependencies ) 
-4. Type " npm install " inside the client directory ( Download Front-end Dependencies )
+In this demo you will see:
 
-If you have problem, feel free to ask me ^^ 
+- How to build a React web application to simulate an eCommerce
+- How to build a NodeJS backend application to simulate an eCommerce
+- Adding Open Telemetry traces
 
-You can watch the tutorial for this app.
+## Requirements
 
-https://www.youtube.com/watch?v=zaWtIkJgah4&t=5569s
+- NodeJS 16.x installed
+- A container running a Mongo instance. Check [this tutorial](https://luturol.github.io/docker/mongodb/Using-MongoDB-with-Docker) for more.
+- A container running ZipKin for showing the OpenTelemetry traces. Check [this tutorial](https://blog.shalvah.me/posts/a-practical-tracing-journey-with-opentelemetry-on-node-js) to learn more.
 
+## Run this demo locally
+
+1. Make `dev.js` file inside `config` folder
+2. Add mongoDB info into dev.js file.
+
+```
+module.exports = {
+    mongoURI:'mongodb://user:password@localhost:27017'
+}
+```
+
+3. Type `npm install` inside the root directory, to download server-side dependencies.
+
+4. Type `npm install` inside the client directory, to download front-end dependencies.
+
+### How to develop this project
+
+The React part of this code repo is inspired in a YouTube tutorial.
+You can watch [the tutorial](https://www.youtube.com/watch?v=zaWtIkJgah4&t=5569s) to learn to build this application.
