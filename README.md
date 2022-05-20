@@ -29,6 +29,14 @@ module.exports = {
 
 4. Type `npm install` inside the client directory, to download front-end dependencies.
 
+5. Create an `upload` folder in the root of this project
+6. If you want to prepopulate the eCommerce you can copy all the files in `data/images` to the `upload` folder.
+7. Use mongo restore to restore the database dump in the `data/dump` folder.
+
+```
+mongorestore --uri="mongodb://<user>:<password>@localhost:27017" dump/
+```
+
 ### How to develop this project
 
 The React part of this code repo is inspired in a YouTube tutorial.
