@@ -84,18 +84,13 @@ getCartInfo = async (userId) => {
 }
 
 buyItems = async (cartDetail, userId, userName, userLastName, userEmail) => {
-    console.log('buy items controller');
 
     let history = [];
     let transactionData = {};
-
     const paymentId = uuidv4();
-
+    
     // Add a new item to the history 
-    cartDetail.forEach((item) => {
-        console.log(item);
-        console.log(paymentId)
-
+    cartDetail.forEach((item) => {        
         history.push({
             dateOfPurchase: Date.now(),
             name: item.title,
@@ -104,6 +99,7 @@ buyItems = async (cartDetail, userId, userName, userLastName, userEmail) => {
             quantity: item.quantity,
             paymentId: paymentId
         })
+
     })
 
     // Put Payment Information that come from payment into payment collection 
@@ -132,7 +128,6 @@ buyItems = async (cartDetail, userId, userName, userLastName, userEmail) => {
 
     return user.cart;
 }
-
 
 getHistory = async(userId) => {
     const user = await User.findOne({ _id: userId });

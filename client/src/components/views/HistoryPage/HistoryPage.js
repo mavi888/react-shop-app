@@ -1,7 +1,8 @@
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { STORE_SERVER } from '../../Config';
-
+import moment from "moment";
+ 
 function HistoryPage() {
 
     const [History, setHistory] = useState([])
@@ -12,12 +13,36 @@ function HistoryPage() {
                 if (res.data.success) {
                     const history = res.data.history
                     setHistory(history)
-                    console.log(History)
                 } else {
                     alert('Failed to get History')
                 }
             })
     }, [])
+
+    const formatTime = (time) => {
+        var day = moment(time);
+        if (time !== undefined) {
+            const t = day.format("DD-MM-YYYY")
+            return t
+        }
+    }
+
+    const calculateTotal = (items) => {
+        let total = 0;
+        items.forEach(item => {
+            total = total + item.price;
+        });
+        return total
+    }
+
+    const calculateQuantity = (items) => {
+        let total = 0;
+        items.forEach(item => {
+            total = total + item.quantity;
+        });
+        return total
+    }
+
 
     return (
         <div style={{ width: '80%', margin: '3rem auto' }}>
@@ -29,7 +54,7 @@ function HistoryPage() {
             <table>
                 <thead>
                     <tr>
-                        <th>Payment Id</th>
+                        <th>Order Id</th>
                         <th>Price</th>
                         <th>Quantity</th>
                         <th>Date of Purchase</th>
@@ -40,9 +65,9 @@ function HistoryPage() {
                     {History.map(item => (
                         <tr key={item[0].id}>
                             <td>{item[0].paymentId}</td>
-                            <td>{item[0].price}</td>
-                            <td>{item[0].quantity}</td>
-                            <td>{item[0].dateOfPurchase}</td>
+                            <td>{calculateTotal(item)}</td>
+                            <td>{calculateQuantity(item)}</td>
+                            <td>{formatTime(item[0].dateOfPurchase)}</td>
                         </tr>
                     ))}
                 </tbody>
