@@ -41,3 +41,7 @@ mongorestore --uri="mongodb://<user>:<password>@localhost:27017" dump/
 
 The React part of this code repo is inspired in a YouTube tutorial.
 You can watch [the tutorial](https://www.youtube.com/watch?v=zaWtIkJgah4&t=5569s) to learn to build this application.
+
+## Migrate to serverless
+
+This code repository is part of a series of videos. In this series you will learn how to migrate this MERN application to Serverless on AWS. You can follow the whole series in this [playlist](https://www.youtube.com/playlist?list=PLGyRwGktEFqe2ga9UmQSBr5xdfVyiDPW6)
