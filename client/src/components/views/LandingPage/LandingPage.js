@@ -62,7 +62,7 @@ function LandingPage() {
 			filters: Filters,
 			searchTerm: SearchTerms,
 		};
-		getProducts(variables);
+		getProductsFromServer(variables);
 		setSkip(skip);
 	};
 
@@ -90,7 +90,7 @@ function LandingPage() {
 			limit: Limit,
 			filters: filters,
 		};
-		getProducts(variables);
+		getProductsFromServer(variables);
 		setSkip(0);
 	};
 
@@ -133,7 +133,7 @@ function LandingPage() {
 		setSkip(0);
 		setSearchTerms(newSearchTerm);
 
-		getProducts(variables);
+		getProductsFromServer(variables);
 	};
 
 	return (
