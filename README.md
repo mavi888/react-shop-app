@@ -12,7 +12,6 @@ In this demo you will see:
 
 - NodeJS 16.x installed
 - A container running a Mongo instance. Check [this tutorial](https://luturol.github.io/docker/mongodb/Using-MongoDB-with-Docker) for more.
-- A container running ZipKin for showing the OpenTelemetry traces. Check [this tutorial](https://blog.shalvah.me/posts/a-practical-tracing-journey-with-opentelemetry-on-node-js) to learn more.
 
 ## Run this demo locally
 
@@ -35,6 +34,12 @@ module.exports = {
 
 ```
 mongorestore --uri="mongodb://<user>:<password>@localhost:27017" dump/
+```
+
+8. Run in the terminal
+
+```
+npm run dev
 ```
 
 ### How to develop this project
